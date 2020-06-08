@@ -13,7 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::resource('posts', 'PostController');
+Route::resource('answers', 'AnswerController', ['except' => ['index', 'show', 'create']]);
+Route::get('/', function () {
+    return redirect()->route('posts.index');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

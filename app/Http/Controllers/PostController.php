@@ -37,6 +37,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        
         //Validating the information given by the database
         $this->validate($request, [
             'title' => 'required|max:255',
@@ -76,7 +77,10 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $posttitle = $post->title;
+        $postdesc = $post->description;
+        return view('edit', ['posttitle'=>$posttitle, 'postdesc'=>$postdesc, 'post'=>$post ]);
     }
 
     /**
@@ -88,7 +92,20 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       
+        $this->validate($request, [
+            'title'=> 'required|max:255',
+            'description' => 'required'
+        ]
+
+        );
+        $post = Post::findOrFail($id);
+        
+        $post->title = $request->title;
+        $post->description = $request->description;
+
+        $post->save();
+        return redirect()->route('posts.index');
     }
 
     /**

@@ -16,28 +16,15 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
+           
             <div class="container text-center">
                 <div class="title">
                     <h1>Laravel Questions </h1>
                 </div>
 
                 <div class="links">
+                    <a href=" {{ route('posts.index') }} " class="btn btn-success mx-1">Home</a>
                     <a href=" {{ route('posts.create') }} " class="btn btn-success mx-1">Create a Post</a>
-                    <a href="https://laracasts.com" class="btn btn-success mx-1">Laracasts</a>
                     <a href="https://laravel-news.com" class="btn btn-success mx-1">News</a>
                     <a href="https://blog.laravel.com" class="btn btn-success mx-1">Blog</a>
                     <a href="https://nova.laravel.com" class="btn btn-success mx-1">Nova</a>

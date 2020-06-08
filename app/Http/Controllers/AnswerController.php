@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Answer;
+use App\Post;
 
 class AnswerController extends Controller
 {
@@ -15,19 +17,19 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'content'=>'required|max:255',
+            'post_id'=>'required|integer'
+        ]
+        );
+        $answer = new Answer;
+        $answer->content = $request->content;
+        $post = Post::findOrFail($request->post_id);
+        $post->answers()->save($answer);
+
+        return redirect()->route('posts.show', $post->id);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
